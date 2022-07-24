@@ -16,8 +16,9 @@ function App() {
       </header>
 
       <div>
-        <label>Date</label><br/>
-        <input type="date" id="date" name="date" onChange={e => setDate(e.target.value)}/> <br />
+        <br />
+
+        <input type="date" id="date-input" name="date" onChange={e => setDate(e.target.value)}/> 
         <button onClick={search} id = "go-button">
         GO
         </button>
@@ -28,6 +29,7 @@ function App() {
       <p>
         {picked_date} to {get_date()}
       </p>
+
 
       {dataToda === undefined ? (
         <p>Nothing entered yet!</p>
@@ -50,8 +52,11 @@ function App() {
           <p id = "data_string">{parseFloat(dataToda.rates.XAG).toFixed(2)}</p>
           </span>
 
-          <div id = "below">
-          <p>Diffrence = {getDiffrence(dataHist.rates.XAG,dataToda.rates.XAG)}</p>
+
+
+
+          <div id = "remark">
+          <p>{getDiffrence(dataHist.rates.XAG,dataToda.rates.XAG)}</p>
           </div>
         </div>
       )}
@@ -61,10 +66,11 @@ function App() {
 
   function getDiffrence(historical: number,today: number) {
     if (today>historical) {
-      
-      return (today-historical).toFixed(2);
+      var str = "🎉 Congrats you made $"+(today-historical).toFixed(2)+" per Ounce 🎉";
+      return str;
     }else{
-      return (historical-today).toFixed(2);
+      var str = "Ohh no you lost $"+(historical-today).toFixed(2)+" per Ounce";
+      return str;
     }
   }
 

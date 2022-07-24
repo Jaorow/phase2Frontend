@@ -1,8 +1,7 @@
 :root{
-  --main-background: grey;
-  --second-layer: rgba(95, 87, 87, 0.813);
-
-
+  --main-background: #32363a;
+  --second-layer: #21232640;
+  --text-color: #ffffff;
 }
 
 body {
@@ -14,17 +13,29 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--main-background);
   text-align: center;
+
+  color: var(--text-color);
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 #title{
   color: gold;
 
 }
+#date-input{
+  background-color: var(--main-background);
+  border-color: none;
+}
 
+/* #go-button{
+  background-color: #32363a;
+  border: none;
+  
+} */
 
 #right-result{
   float: right;
@@ -37,28 +48,28 @@ code {
 #center{
   position: relative;
   top: 30px;
-  
 }
 
-#below{
+#remark{
   border-radius: 20px;
+  padding: 10px;
   margin: 30%;
   background-color: var(--second-layer);
   margin-top: 100px;
 }
+
 #left-result{
   float: left;
   background-color: var(--second-layer);
   width: 20%;
   margin-left: 20%;
   border-radius: 20px;
-
 }
 
 #help{
   position: fixed;
-  top: 0px;
-  left: 98%;
+  top: 10px;
+  right: 10PX;
   border-width: 10px;
   background-color: var(--second-layer);
   border-radius: 50%;
