@@ -31,15 +31,28 @@ function App() {
         <p>Nothing entered yet!</p>
       ) : (
         <div id="result">
+          <div id = "left-result">
+
           <p>{parseFloat(dataHist.rates.XAG).toFixed(2)}</p>
+
+          </div>
+          <div>
+            <img src="frontend/src/arrow_test.png" alt="arrow" />
+          </div>
+          <div id = "right-result">
+
           <p>Gold price Today {parseFloat(dataToda.rates.XAG).toFixed(2)}</p>
-          
+
+          </div>
         </div>
       )}
 
     </div>
   );
 
+    function getArrow() {
+      return "/Users/jamie/Desktop/BASE/phase2/frontend/src/arrow_test.png";
+    }
     function search() {
       
       let today ={
