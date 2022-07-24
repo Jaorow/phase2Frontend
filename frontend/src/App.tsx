@@ -9,8 +9,10 @@ function App() {
 
   return (
     <div className="App">
+      <div id = "help">?</div>
       <header className="App-header">
         <h1 id = "title">Gold Prices</h1>
+        <p id = "header-intro">Input a historical date and see how much your gold has risen 🤞🏼 in price</p>
       </header>
 
       <div>
@@ -24,25 +26,32 @@ function App() {
 
 
       <p>
-        The gold price on {picked_date} was ... 
+        {picked_date} to {get_date()}
       </p>
 
       {dataToda === undefined ? (
         <p>Nothing entered yet!</p>
       ) : (
+
         <div id="result">
-          <div id = "left-result">
+          <span id = "left-result">
+            <p>Historical</p>
+            {/* <p>{picked_date}</p> */}
+          <p id = "data_string">{parseFloat(dataHist.rates.XAG).toFixed(2)}</p>
+          </span>
+          
+          <span id = "center">
+            {getArrow(dataHist.rates.XAG,dataToda.rates.XAG)}
+          </span>
 
-          <p>{parseFloat(dataHist.rates.XAG).toFixed(2)}</p>
+          <span id = "right-result">
+            <p>Today</p>
+            {/* <p>{get_date()}</p> */}
+          <p id = "data_string">{parseFloat(dataToda.rates.XAG).toFixed(2)}</p>
+          </span>
 
-          </div>
-          <div>
-            <img src="frontend/src/arrow_test.png" alt="arrow" />
-          </div>
-          <div id = "right-result">
-
-          <p>Gold price Today {parseFloat(dataToda.rates.XAG).toFixed(2)}</p>
-
+          <div id = "below">
+          <p>Diffrence = {getDiffrence(dataHist.rates.XAG,dataToda.rates.XAG)}</p>
           </div>
         </div>
       )}
@@ -50,15 +59,29 @@ function App() {
     </div>
   );
 
-    function getArrow() {
-      return "/Users/jamie/Desktop/BASE/phase2/frontend/src/arrow_test.png";
+  function getDiffrence(historical: number,today: number) {
+    if (today>historical) {
+      
+      return (today-historical).toFixed(2);
+    }else{
+      return (historical-today).toFixed(2);
     }
+  }
+
+    function getArrow(historical:Date,today:Date) {
+      if (today>historical) {
+        return "✅";
+      }else{
+        return "❌";
+      }
+    }
+
     function search() {
       
       let today ={
         base: "NZD",
         date: "2022-07-23",
-        rates: {XAG: 29.72905401000014},
+        rates: {XAG: 39.72905401000014},
         success: true,
         timestamp: 1658361300,
         unit: "per ounce"

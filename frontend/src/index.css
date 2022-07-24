@@ -1,3 +1,10 @@
+:root{
+  --main-background: grey;
+  --second-layer: rgba(95, 87, 87, 0.813);
+
+
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,11 +12,55 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: grey;
+  background-color: var(--main-background);
   text-align: center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+#title{
+  color: gold;
+
+}
+
+
+#right-result{
+  float: right;
+  background-color: var(--second-layer);
+  width: 20%;
+  margin-right: 20%;
+  border-radius: 20px;
+}
+
+#center{
+  position: relative;
+  top: 30px;
+  
+}
+
+#below{
+  border-radius: 20px;
+  margin: 30%;
+  background-color: var(--second-layer);
+  margin-top: 100px;
+}
+#left-result{
+  float: left;
+  background-color: var(--second-layer);
+  width: 20%;
+  margin-left: 20%;
+  border-radius: 20px;
+
+}
+
+#help{
+  position: fixed;
+  top: 0px;
+  left: 98%;
+  border-width: 10px;
+  background-color: var(--second-layer);
+  border-radius: 50%;
+
 }
