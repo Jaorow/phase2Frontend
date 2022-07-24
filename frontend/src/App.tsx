@@ -23,18 +23,13 @@ function App() {
         </button>
       </div>
 
-
-
-      <p>
-        {picked_date} to {get_date()}
-      </p>
-
-
       {dataToda === undefined ? (
         <p>Nothing entered yet!</p>
       ) : (
-
         <div id="result">
+            <p>
+              {picked_date} to {get_date()}
+            </p>
           <span id = "left-result">
             <p>Historical</p>
             {/* <p>{picked_date}</p> */}
