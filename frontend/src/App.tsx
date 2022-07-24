@@ -9,7 +9,6 @@ function App() {
 
   return (
     <div className="App">
-      <div id = "help">?</div>
       <header className="App-header">
         <h1 id = "title">Gold Prices</h1>
         <p id = "header-intro">Input a historical date and see how much your gold has risen 🤞🏼 in price</p>

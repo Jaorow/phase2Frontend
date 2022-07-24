@@ -66,12 +66,3 @@ code {
   border-radius: 20px;
 }
 
-#help{
-  position: fixed;
-  top: 10px;
-  right: 10PX;
-  border-width: 10px;
-  background-color: var(--second-layer);
-  border-radius: 50%;
-
-}
