@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import './App.css';
 import axios from "axios";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 
 function App() {
   const [picked_date, setDate] = useState("");
@@ -18,14 +21,24 @@ function App() {
         <br />
 
         <input type="date" id="date-input" name="date" onChange={e => setDate(e.target.value)}/> 
-        <button onClick={search} id = "go-button">
-        GO
-        </button>
+        
+        <IconButton
+          aria-label="search"
+          onClick={() => {
+            search();
+          }}
+        >
+          <SearchIcon style={{ fill: "orange" }} />
+        </IconButton>
+         {/* <button onClick={search} id = "go-button"> GO </button> */}
       </div>
 
       {dataToda === undefined ? (
+
         <p>Nothing entered yet!</p>
-      ) : (
+      
+        ) : (
+
         <div id="result">
             <p>
               {picked_date} to {get_date()}
