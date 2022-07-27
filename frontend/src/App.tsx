@@ -4,6 +4,7 @@ import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import { LocalizationProvider } from '@mui/x-date-pickers';
 
 function App() {
   const [picked_date, setDate] = useState("");
@@ -22,6 +23,10 @@ function App() {
 
         <input type="date" id="date-input" name="date" onChange={e => setDate(e.target.value)}/> 
         
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+        {/* onChange={e => setDate(e.target.value)} */}
+        </LocalizationProvider>
+
         <IconButton
           aria-label="search"
           onClick={() => {
