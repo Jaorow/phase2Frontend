@@ -3,11 +3,14 @@ import './App.css';
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { LocalizationProvider } from '@mui/x-date-pickers';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import { Difference } from '@mui/icons-material';
+
 
 function App() {
   const [picked_date, setDate] = useState("");
+  const [amount, Price] = useState("");
   const [dataHist, getHistorical] = useState<undefined | any>(undefined);
   const [dataToda, getToday] = useState<undefined | any>(undefined);
 
@@ -15,27 +18,32 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1 id = "title">Gold Prices</h1>
-        <p id = "header-intro">Input a historical date and see how much your gold has risen 🤞🏼 in price</p>
+        <p id = "header-intro">Input a historical date (after 2019) and see how much your gold has risen 🤞🏼 in price</p>
       </header>
 
       <div>
         <br />
-
-        <input type="date" id="date-input" name="date" onChange={e => setDate(e.target.value)}/> 
         
-        <LocalizationProvider dateAdapter={AdapterMoment}>
-        {/* onChange={e => setDate(e.target.value)} */}
-        </LocalizationProvider>
-
+      <TextField
+        id="date"
+        label="Historical price"
+        type="date"
+        defaultValue="2019-10-11"
+        sx={{width: 120}}
+        InputLabelProps={{
+          shrink: true,
+        }}
+        onChange={e => setDate(e.target.value)}
+      />
+      
         <IconButton
           aria-label="search"
           onClick={() => {
             search();
           }}
         >
-          <SearchIcon style={{ fill: "orange" }} />
+          <SearchIcon id = "date-search" style={{ fill: "orange" }} />
         </IconButton>
-         {/* <button onClick={search} id = "go-button"> GO </button> */}
       </div>
 
       {dataToda === undefined ? (
@@ -46,12 +54,11 @@ function App() {
 
         <div id="result">
             <p>
-              {picked_date} to {get_date()}
+              {reverseDate(picked_date)} to {reverseDate(get_date())}
             </p>
           <span id = "left-result">
             <p>Historical</p>
-            {/* <p>{picked_date}</p> */}
-          <p id = "data_string">{parseFloat(dataHist.rates.XAG).toFixed(2)}</p>
+          <p id = "data_string">${parseFloat(dataHist.rates.XAG).toFixed(2)} per Ounce</p>
           </span>
           
           <span id = "center">
@@ -61,7 +68,7 @@ function App() {
           <span id = "right-result">
             <p>Today</p>
             {/* <p>{get_date()}</p> */}
-          <p id = "data_string">{parseFloat(dataToda.rates.XAG).toFixed(2)}</p>
+          <p id = "data_string">${parseFloat(dataToda.rates.XAG).toFixed(2)} per Ounce</p>
           </span>
 
 
@@ -70,11 +77,44 @@ function App() {
           <div id = "remark">
           <p>{getDiffrence(dataHist.rates.XAG,dataToda.rates.XAG)}</p>
           </div>
+          <br />
+          <p>How many ounces did you buy on {reverseDate(picked_date)}</p>
+          
+          <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          InputLabelProps={{
+            shrink: true,
+          }}
+          sx={{width: 90}}
+          onChange={e => Price(e.target.value)}
+        />
+      
+          <p>{calculatePrice(dataHist.rates.XAG,dataToda.rates.XAG,parseInt(amount))}</p>
         </div>
       )}
 
     </div>
   );
+
+  function calculatePrice(historical: number,today: number,ounces: number) {
+    if (today>historical) {
+      var dif = ((today - historical)*ounces).toFixed(2);
+      return ("congrats! you made $"+dif);
+    }else{
+      var dif = ((historical - today)*ounces).toFixed(2);
+      return ("Ohh no you lost$"+dif);
+    }
+    // var total = Dif * ounces; 
+    
+    
+  }
+  function reverseDate(date:String) {
+    const splitDate = date.split("-");
+    return (splitDate[2]+"/"+splitDate[1]+"/"+splitDate[0]);
+  }
+
 
   function getDiffrence(historical: number,today: number) {
     if (today>historical) {
@@ -96,6 +136,8 @@ function App() {
 
     function search() {
       
+      // had to have faked data during dev in order to not use up all api calls! 
+
       let today ={
         base: "NZD",
         date: "2022-07-23",
@@ -122,7 +164,6 @@ function App() {
 
 
         //  ENABLE BELOW WHEN YOU WANT TO USE UP API 
-        // only goes to 2019, can fix that later...
 
       // console.log("==========================")
       // axios.get("https://metals-api.com/api/" + picked_date, { params: {access_key : "kth7y2mc5gd1z9xrc200xv86w7u227y7f6fiqlfgsijwf1i9558xr3dn08v2", base : "NZD",  symbols : "XAG"} }).then((res) => {
@@ -143,10 +184,14 @@ function App() {
       var dd = String(today.getDate()).padStart(2, '0');
       var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
       var yyyy = today.getFullYear();
-      
+      console.log("todays date = "+yyyy + '-' +mm + '-' + dd)
       return yyyy + '-' +mm + '-' + dd;
+
     }
 
   }
+
+
+  
 
 export default App;
